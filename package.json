@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "type": "module",
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "axios": "^1.1.2",
+        "bootstrap": "^5.2.3"
+    },
+    "dependencies": {
+        "datatables.net": "^1.13.6"
+    }
+}
