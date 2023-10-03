@@ -1,11 +1,11 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-  
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: darkgoldenrod">
+
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-      <div class="sidebar-brand-icon rotate-n-15">
-        {{-- <i class="fas fa-laugh-wink"></i> --}}
+      <div class="sidebar-brand-icon">
+        <img src="{{ asset('oil-clinic.png') }}" alt="logo" style="height: 3em; width: 2em;">
       </div>
-      <div class="sidebar-brand-text mx-3">Dashboard Oil Clinic</div>
+      <div class="sidebar-brand-text mx-4"> Dashboard Oil Clinic</div>
     </a>
     
     <!-- Divider -->
@@ -15,13 +15,13 @@
     <li class="nav-item">
       <a class="nav-link" href="{{ route('dashboard') }}">
         <i class="fas fa-fw fa-oil-can"></i>
-        <span>Dashboard</span></a>
+        <span style="color: white;">Dashboard</span></a>
     </li>
     
     <li class="nav-item">
       <a class="nav-link" href="{{ route('oil') }}">
         <i class="fas fa-fw fa-oil-can"></i>
-        <span>Oil</span></a>
+        <span style="color: white;">Oil</span></a>
     </li>
     
     {{-- <li class="nav-item">

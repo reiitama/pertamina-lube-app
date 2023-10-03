@@ -41,7 +41,8 @@ Route::middleware('auth')->group(function () {
         Route::post('store', 'store')->name('oil.store');
         Route::get('show/{id}', 'show')->name('oil.show');
         Route::get('/{id}/edit', [OilController::class, 'edit'])->name('oil.edit');
-        Route::put('{id}', [OilController::class, 'update'])->name('oil.update');
+        Route::put('/update/{id}', [OilController::class, 'update'])->name('oil.update');
+        // Route::put('{id}', [OilController::class, 'update'])->name('oil.update');
         // Route::get('/oil/{id}/{table}/edit', 'OilController@edit');
         Route::delete('destroy/{id}', 'destroy')->name('oil.destroy');
     });

@@ -14,7 +14,7 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('admin_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
-<body class="bg-gradient-primary">
+<body style="background-color: gold">
   <div class="container">
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -23,7 +23,9 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-5 d-none d-lg-block text-center" style="padding-top: 9em;">
+                <img src="{{ asset('oilclinic-logo.png') }}" alt="">
+              </div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">

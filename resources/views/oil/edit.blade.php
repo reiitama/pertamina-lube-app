@@ -12,7 +12,7 @@
         @method('PUT')
         
         <div class="row">
-        <input type="hidden" name="id" value="{{ $oil->condemnID }}">
+        <input type="hidden" name="id" value="{{ $oil->id }}">
         @foreach ($columns as $column)
             <div class="col-md-2 mb-3">
                 <label for="{{ $column }}" class="form-label">{{ $column }}</label>
@@ -31,4 +31,9 @@
     
     
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('admin_assets/js/sb-admin-2.min.js') }}"></script>
+
+
 @endsection

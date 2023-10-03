@@ -5,6 +5,7 @@
 @section('contents')
  <!-- jQuery -->
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ {{-- <script src="path/to/sb-admin-2.min.js"></script> --}}
 
  <!-- Bootstrap CSS -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,21 +17,15 @@
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
- <!-- DataTables Buttons JavaScript -->
+ {{-- <!-- DataTables Buttons JavaScript -->
  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
- <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+ <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script> --}}
 
  <!-- DataTables Select -->
  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.4/css/select.dataTables.min.css">
  <script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
-
- <!-- DataTables PDF Export -->
- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
- <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.pdf.min.js"></script>
 
  <!-- Add Font Awesome -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -135,34 +130,7 @@
 
  $(document).ready(function() {
      var table = $('#dataTable').DataTable({
-         dom: 'Bfrtip',
-         buttons: [
-             {
-                 extend: 'copyHtml5',
-                 text: '<i class="fas fa-copy"></i> Copy',
-                 className: 'export-button', // Hapus class 'buttons-html5' dan gantilah dengan 'export-button'
-         },
-             {
-                 extend: 'csvHtml5',
-                 text: '<i class="fas fa-file-csv"></i> CSV',
-                 className: 'buttons-html5 export-button', // Add your custom class
-             },
-             {
-                 extend: 'excelHtml5',
-                 text: '<i class="fas fa-file-excel"></i> Excel',
-                 className: 'buttons-html5 export-button', // Add your custom class
-             },
-             {
-                 extend: 'pdfHtml5',
-                 text: '<i class="fas fa-file-pdf"></i> PDF',
-                 className: 'buttons-html5 export-button', // Add your custom class
-             },
-             {
-                 extend: 'print',
-                 text: '<i class="fas fa-print"></i> Print',
-                 className: 'buttons-html5 export-button', // Add your custom class
-             }
-         ],
+         dom: 'Bfrtip', 
          pageLength: 10,
          select: {
              style: 'multi',

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('modelID');
             $table->integer('manufacID');
             $table->integer('compoID');
-            $table->integer('apllicationID');
+            $table->integer('applicationID');
             $table->string('modelType');
         });
     }

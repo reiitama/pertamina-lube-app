@@ -434,10 +434,10 @@ class OilController extends Controller
     }
        
 
-    public function edit($condemID)
+    public function edit($id)
     {
         // Using model Oil with table oil
-        $oil = Oil::findOrFail($condemID);
+        $oil = Oil::find($id);
     
         if (! $oil) {
             return abort(404);
@@ -634,15 +634,19 @@ class OilController extends Controller
         // Assuming you have $columns available, pass them to the view
         return view('oil.edit', compact('oil', 'columns'));
     }
-    
 
-
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $columns  = $this->columns();
-        $condemID = $request->input('condemID');
-        $oil     = Oil::findOrFail($condemID);
-        
+        // Cari data berdasarkan ID
+        $oil = Oil::find($id);
+
+        // Perbarui data berdasarkan input yang diterima
+        $oil->update($request->all());
+
+        // Simpan perubahan
+        $oil->save();
+
+        // Redirect ke halaman indeks dengan pesan sukses
         return redirect()->route('oil')->with('success', 'Condem updated successfully');
     }
 
