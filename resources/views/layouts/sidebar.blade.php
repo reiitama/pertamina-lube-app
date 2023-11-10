@@ -1,4 +1,4 @@
-<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: darkgoldenrod">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #f1c423">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -13,9 +13,9 @@
     
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-      <a class="nav-link" href="{{ route('dashboard') }}">
+      <a class="nav-link" href="{{ route('inventory.index') }}">
         <i class="fas fa-fw fa-oil-can"></i>
-        <span style="color: white;">Dashboard</span></a>
+        <span style="color: white;">Inventory</span></a>
     </li>
     
     <li class="nav-item">

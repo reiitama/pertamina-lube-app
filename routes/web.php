@@ -3,18 +3,8 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OilController;
-use App\Http\Controllers\CondemningController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\CustomController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -31,24 +21,38 @@ Route::controller(AuthController::class)->group(function () {
 });
   
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
  
     Route::controller(OilController::class)->prefix('oil')->group(function () {
-        // Route::get('', 'index')->name('oil');
         Route::get('oil', [OilController::class, 'index'])->name('oil.index');
-        Route::post('store', 'store')->name('oil.store');
         Route::get('show/{id}', 'show')->name('oil.show');
         Route::get('/{id}/edit', [OilController::class, 'edit'])->name('oil.edit');
         Route::put('/update/{id}', [OilController::class, 'update'])->name('oil.update');
-        // Route::put('{id}', [OilController::class, 'update'])->name('oil.update');
-        // Route::get('/oil/{id}/{table}/edit', 'OilController@edit');
-        Route::delete('destroy/{id}', 'destroy')->name('oil.destroy');
+        Route::get('/oil/export/csv/{condemIDs}', 'App\Http\Controllers\OilController@exportCsv')->name('oil.export.csv');
+        Route::get('/oil/export/pdf/{condemIDs}', 'App\Http\Controllers\OilController@exportPdf')->name('oil.export.pdf');
+        Route::get('/oil/download/pdf', 'App\Http\Controllers\OilController@downloadPdf')->name('oil.download.pdf');
     });
 
+    Route::controller(InventoryController::class)->prefix('inventory')->group(function (){
+        Route::get('/', [InventoryController::class, 'index'])->name('inventory.index');
+        Route::get('create', [InventoryController::class, 'create'])->name('inventory.create');
+        Route::post('store', [InventoryController::class, 'store'])->name('inventory.store');
+        // Route::get('show/{id}', 'show')->name('inventory.show');
+        // Route::get('/{id}', [InventoryController::class, 'edit'])->name('inventory.edit');
+        Route::get('/{id}', 'edit')->name('inventory.edit');
+        Route::put('/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
+        Route::delete('/inventories/{inventory}', [InventoryController::class, 'destroy'])->name('inventory.destroy');
+    });
+
+    
     Route::get('/oil', [OilController::class, 'index'])->name('oil');
     
+    Route::controller(CustomController::class)->prefix('custom')->group(function () {
+        Route::get('/', [CustomController::class, 'index'])->name('custom');
+        Route::get('/showcustom/{conID}', [CustomController::class, 'showcustom'])->name('custom.showcustom');
+    });
+    
+    // Route::get('/custom', [CustomController::class, 'index'])->name('custom');
+    // Route::get('show/{conID}', 'CustomController@show')->name('oil.showcustom');
  
     Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
 });

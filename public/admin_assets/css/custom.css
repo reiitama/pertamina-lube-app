@@ -1,0 +1,68 @@
+/* Tombol CSV dan PDF */
+#exportSelected,
+#exportSelectedPdf {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+/* Efek hover */
+#exportSelected:hover,
+#exportSelectedPdf:hover {
+    background-color: darkgoldenrod;
+    color: black;
+}
+
+.modal-lg {
+    max-width: 70%;
+    /* Adjust the percentage as needed */
+}
+
+.navbar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.navbar-menu li {
+    display: inline;
+    margin-right: 20px;
+    position: relative;
+    /* Required for the underline animation */
+}
+
+.navbar-menu a {
+    text-decoration: none;
+    color: goldenrod;
+    /* Text color for non-active links */
+}
+
+/* Colored underline for active link */
+.navbar-menu a.active {
+    border-bottom: 2px solid #ff5733;
+    /* Colored underline for the active link */
+}
+
+/* Underline animation */
+.navbar-menu a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #ff5733;
+    /* Color of the underline */
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.navbar-menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Add a margin to separate the navbar from the content */
+.navbar-menu {
+    margin-bottom: 20px;
+}

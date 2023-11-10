@@ -7,28 +7,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Admin - Dashboard</title>
-  
-  {{-- <style>
-    .sidebar-brand-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-image: url('{{ asset('oilclinic-logo.png') }}');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center center;
-      height: 10em; /* Atur tinggi sesuai keinginan Anda */
-      transition: all 0.3s; /* Animasi perubahan ukuran */
-    }
-  
-    /* Stail khusus saat sidebar diperkecil */
-    @media (max-width: 768px) {
-      .sidebar-brand-icon {
-        width: max-content
-        height: auto; /* Atur tinggi yang lebih kecil */
-      }
-    }
-  </style> --}}
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('admin_assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -36,6 +14,7 @@
   
   <!-- Custom styles for this template-->
   <link href="{{ asset('admin_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
 </head>
 <body id="page-top">
   <!-- Page Wrapper -->
@@ -53,11 +32,11 @@
   
         <!-- Topbar -->
         @include('layouts.navbar')
+        
         <!-- End of Topbar -->
   
         <!-- Begin Page Content -->
         <div class="container-fluid">
-  
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">@yield('title')</h1>
@@ -73,7 +52,7 @@
   
       </div>
       <!-- End of Main Content -->
-  
+      
       <!-- Footer -->
       @include('layouts.footer')
       <!-- End of Footer -->
