@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         /* Tampilan container */
@@ -12,7 +13,8 @@
             margin-left: -30px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 5px 5px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -43,6 +45,8 @@
         }
     </style>
 </head>
+
+
 <body>
     <div class="container">
         <div class="logo-left">
@@ -50,12 +54,21 @@
         </div>
         <h1>Condemning Limit</h1>
 
+        Manufacture : {{ $data['manufacture_date'] }}
+        <br>
+        Component : {{ $data['component'] }}
+        <br>
+        Application : {{ $data['application'] }}
+        <br>
+        Model : {{ $data['model'] }}
+        <br>
         <table>
             <thead>
                 <tr>
-                    <th>Value</th>
-                    <th>Value</th>
-                    <th>Value</th>
+                    <th>Category</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>Border</th>
                     <th>Numeric/%</th>
                     <th>Keterangan</th>
 
@@ -63,12 +76,30 @@
             </thead>
             <tbody>
                 @php $count = 0; @endphp
-                @foreach($data as $item)
-                    @foreach((array)$item as $key => $value)
-                        @if($count % 5 == 0)
-                            </tr><tr>
+                @foreach ($data['condems'] as $item)
+                    @foreach ((array) $item as $key => $value)
+                        @php
+                            $words = explode(' ', $key);
+                            $lastWord = end($words);
+                        @endphp
+                        @if ($count % 5 == 0)
+                            </tr>
+                            <tr>
+                                <td>{{ str_replace($lastWord, '', $key) }}</td>
                         @endif
-                        <td>{{ $value }}</td>
+
+                        @if ($lastWord == 'per')
+                            @if ($value == '1')
+                                <td>{{ 'PERCENT' }}</td>
+                            @elseif ($value == '0')
+                                <td>{{ 'NUMERIC' }}</td>
+                            @else
+                                <td>{{ $value }}</td>
+                            @endif
+                        @else
+                            <td>{{ $value }}</td>
+                        @endif
+
                         @php $count++; @endphp
                     @endforeach
                 @endforeach
@@ -76,4 +107,5 @@
         </table>
     </div>
 </body>
+
 </html>

@@ -9,7 +9,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    {{-- <th>ID</th> --}}
                     <th>No</th>
                     <th>Nama</th>
                     <th>Jenis</th>
@@ -26,7 +26,7 @@
 
                 @foreach($inventories as $inventory)
                     <tr>
-                        <td>{{ $inventory->id }}</td>
+                        {{-- <td>{{ $inventory->id }}</td> --}}
                         <td>{{ $rowNumber++ }}</td>
                         <td>{{ $inventory->nama }}</td>
                         <td>{{ $inventory->jenis }}</td>
