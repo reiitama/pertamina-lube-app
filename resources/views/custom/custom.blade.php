@@ -149,8 +149,13 @@
                             @foreach ($result as $row)
                                 <tr>
                                     <td>
-                                        <input type="checkbox" id="selectedRow_{{ $row->conID }}" name="selectedRows[]"
+                                        @if (request()->selectedRows != "" && in_array($row->conID, request()->selectedRows ?? []))
+                                            <input type="checkbox" id="selectedRow_{{ $row->conID }}" name="selectedRows[]"
+                                            value="{{ $row->conID }}" checked>
+                                        @else
+                                            <input type="checkbox" id="selectedRow_{{ $row->conID }}" name="selectedRows[]"
                                             value="{{ $row->conID }}">
+                                        @endif
                                     </td>
                                     <td>{{ $row->customerName }}</td>
                                     <td>{{ $row->areaName }}</td>
@@ -312,17 +317,19 @@
                                 var selectedRowData = [];
                                 selectedRowIds.forEach(function(rowId) {
                                     var rowData = {
-                                        manufacture: $('td:eq(1)', 'tr[data-id="' + rowId + '"]').text(),
-                                        component: $('td:eq(2)', 'tr[data-id="' + rowId + '"]').text(),
-                                        application: $('td:eq(3)', 'tr[data-id="' + rowId + '"]').text(),
-                                        model: $('td:eq(4)', 'tr[data-id="' + rowId + '"]').text()
+                                        customerName: $('td:eq(1)', 'tr[data-id="' + rowId + '"]').text(),
+                                        areaName: $('td:eq(2)', 'tr[data-id="' + rowId + '"]').text(),
+                                        cityName: $('td:eq(3)', 'tr[data-id="' + rowId + '"]').text(),
+                                        equipCode: $('td:eq(4)', 'tr[data-id="' + rowId + '"]').text(),
+                                        engineNumber: $('td:eq(4)', 'tr[data-id="' + rowId + '"]').text(),
+                                        modelType: $('td:eq(4)', 'tr[data-id="' + rowId + '"]').text()
                                     };
                                     selectedRowData.push(rowData);
                                 });
 
                                 // Membuat permintaan AJAX
                                 $.ajax({
-                                    url: "{{ route('oil.export.pdf', '') }}/" + selectedRowIds.join(','),
+                                    url: "{{ route('custom.export.pdf', '') }}/" + selectedRowIds.join(','),
                                     type: 'GET',
                                     data: {
                                         selectedRowData: selectedRowData
@@ -333,13 +340,14 @@
                                             var pdfFileName = response.pdf_file;
 
                                             // Mengunduh file PDF dengan nama yang sesuai
-                                            var pdfFileUrl = "{{ route('oil.download.pdf') }}?pdf_file=" +
+                                            var pdfFileUrl = "{{ route('custom.download.pdf') }}?pdf_file=" +
                                                 pdfFileName;
                                             var link = document.createElement('a');
                                             link.href = pdfFileUrl;
-                                            link.download = selectedRowData[0].manufacture + '_' +
-                                                selectedRowData[0].application + '_' + selectedRowData[0]
-                                                .component + '_' + selectedRowData[0].model + '_' +
+                                            link.download = selectedRowData[0].customerName + '' +
+                                                selectedRowData[0].areaName + '' + selectedRowData[0]
+                                                .cityName + '' + selectedRowData[0].equipCode + '' + 
+                                                selectedRowData[0].engineNumber + '' + selectedRowData[0].modelType + '' +
                                                 selectedRowIds[0] +
                                                 '.pdf'; // Menggunakan informasi dari data pertama dalam penamaan
                                             link.style.display = 'none';

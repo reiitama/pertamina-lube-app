@@ -133,17 +133,13 @@
                         <button id="exportSelectedPdf" class="btn btn-primary float-right">
                             <i class="fas fa-file-pdf"></i> PDF
                         </button>
-
-
                     </div>
-
-
 
                     <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox" name="selectedRows[]">
+                                    <input type="checkbox" id="selectAll">
                                 </th>
                                 <th>Manufacture</th>
                                 <th>Component Name</th>
@@ -333,9 +329,9 @@
                                         pdfFileName;
                                     var link = document.createElement('a');
                                     link.href = pdfFileUrl;
-                                    link.download = selectedRowData[0].manufacture + '_' +
-                                        selectedRowData[0].application + '_' + selectedRowData[0]
-                                        .component + '_' + selectedRowData[0].model + '_' +
+                                    link.download = selectedRowData[0].manufacture + '' +
+                                        selectedRowData[0].application + '' + selectedRowData[0]
+                                        .component + '' + selectedRowData[0].model + '' +
                                         selectedRowIds[0] +
                                         '.pdf'; // Menggunakan informasi dari data pertama dalam penamaan
                                     link.style.display = 'none';

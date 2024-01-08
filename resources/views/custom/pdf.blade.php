@@ -49,15 +49,20 @@
 <body>
     <div class="container">
         <div class="logo-left">
-            <img src="{{ asset('public/oilclinic-logo.png') }}" alt="logo" style="height: 3em; width: 2em;">
+            <img src="{{ asset('assets/oilclinic-logo.png') }}" alt="" style="height: 3em; width: 2em;">
         </div>
-        <h1>Condemning Limit</h1>
         @foreach ($data as $keyData => $valueData)
-            Manufacture : {{ $valueData['manufacture_date'] }}
+
+            <h1>Condemning Limit</h1>
+            Customer Name : {{ $valueData['customer_name'] }}
             <br>
-            Component : {{ $valueData['component'] }}
+            Area : {{ $valueData['area'] }}
             <br>
-            Application : {{ $valueData['application'] }}
+            City : {{ $valueData['city'] }}
+            <br>
+            Equip : {{ $valueData['equip'] }}
+            <br>
+            Equip Engine : {{ $valueData['equip_engine'] }}
             <br>
             Model : {{ $valueData['model'] }}
             <br>
@@ -70,18 +75,17 @@
                     <th>Max</th>
                     <th>Border</th>
                     <th>Numeric/%</th>
-                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
                 @php $count = 0; @endphp
-                @foreach ($valueData['condems'] as $item)
+                @foreach ($valueData['custo_condem'] as $item)
                     @foreach ((array) $item as $key => $value)
                         @php
                             $words = explode(' ', $key);
                             $lastWord = end($words);
                         @endphp
-                        @if ($count % 5 == 0)
+                        @if ($count % 4 == 0)
                             </tr>
                             <tr>
                                 <td>{{ str_replace($lastWord, '', $key) }}</td>

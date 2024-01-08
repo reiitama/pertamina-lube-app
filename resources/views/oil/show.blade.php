@@ -46,10 +46,13 @@
             return $value;
         }
         if ($value == '1') {
-            return 'PERCENT';
+            return 'Percent / %';
         }
         if ($value == '0') {
-            return 'NUMERIC';
+            return 'Numeric';
+        }
+        if ($value == '-') {
+            return 'None';
         }
         return $value;
     }
