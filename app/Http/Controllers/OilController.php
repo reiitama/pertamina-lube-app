@@ -496,197 +496,62 @@ class OilController extends Controller
 
     public function exportCsv($condemIDs)
     {
-
         $selectedRowIds = explode(',', $condemIDs);
 
         if (empty($selectedRowIds)) {
             return response()->json(['message' => 'No rows selected for export'], 400);
         }
 
+        $columns = [
+            'Vk 40' => ['min', 'max', 'border', 'per', 'ket'],
+            'Vk 100' => ['min', 'max', 'border', 'per', 'ket'],
+            'Oxi' => ['min', 'max', 'border', 'per', 'ket'],
+            'P' => ['min', 'max', 'border', 'per', 'ket'],
+            'Wt' => ['min', 'max', 'border', 'per', 'ket'],
+            'Zn' => ['min', 'max', 'border', 'per', 'ket'],
+            'Soot' => ['min', 'max', 'border', 'per', 'ket'],
+            'Nit' => ['min', 'max', 'border', 'per', 'ket'],
+            'TAN' => ['min', 'max', 'border', 'per', 'ket'],
+            'Ca' => ['min', 'max', 'border', 'per', 'ket'],
+            'Fu' => ['min', 'max', 'border', 'per', 'ket'],
+            'TBN' => ['min', 'max', 'border', 'per', 'ket'],
+            'Ag' => ['min', 'max', 'border', 'per', 'ket'],
+            'Sn' => ['min', 'max', 'border', 'per', 'ket'],
+            'Pb' => ['min', 'max', 'border', 'per', 'ket'],
+            'Fe' => ['min', 'max', 'border', 'per', 'ket'],
+            'Cu' => ['min', 'max', 'border', 'per', 'ket'],
+            'Cr' => ['min', 'max', 'border', 'per', 'ket'],
+            'Al' => ['min', 'max', 'border', 'per', 'ket'],
+            'Si' => ['min', 'max', 'border', 'per', 'ket'],
+            'Na' => ['min', 'max', 'border', 'per', 'ket'],
+            'PI' => ['min', 'max', 'border', 'per', 'ket'],
+            'TI' => ['min', 'max', 'border', 'per', 'ket'],
+            'Sulf' => ['min', 'max', 'border', 'per', 'ket'],
+            'Mg' => ['min', 'max', 'border', 'per', 'ket'],
+            'Mo' => ['min', 'max', 'border', 'per', 'ket'],
+            'NAS 1638' => ['min', 'max', 'border', 'per', 'ket'],
+            'V' => ['min', 'max', 'border', 'per', 'ket'],
+            'FP COC' => ['min', 'max', 'border', 'per', 'ket'],
+            'Wt D 95' => ['min', 'max', 'border', 'per', 'ket'],
+            'Wt KF' => ['min', 'max', 'border', 'per', 'ket'],
+            'Gly' => ['min', 'max', 'border', 'per', 'ket'],
+            'TBN_D4739' => ['min', 'max', 'border', 'per', 'ket'],
+            'PP' => ['min', 'max', 'border', 'per', 'ket'],
+            'Ni' => ['min', 'max', 'border', 'per', 'ket'],
+            'B' => ['min', 'max', 'border', 'per', 'ket'],
+
+        ];
+
+        $selectedColumns = [];
+        foreach ($columns as $column => $subColumns) {
+            foreach ($subColumns as $subColumn) {
+                $selectedColumns[] = $column . ' ' . $subColumn;
+            }
+        }
+
         $data = DB::table('condem')
             ->whereIn('condemID', $selectedRowIds)
-            ->select(
-                'Vk 40 min',
-                'Vk 40 max',
-                'Vk 40 border',
-                'Vk 40 per',
-                'Vk 40 ket',
-                'Vk 100 min',
-                'Vk 100 max',
-                'Vk 100 border',
-                'Vk 100 per',
-                'Vk 100 ket',
-                'Oxi min',
-                'Oxi max',
-                'Oxi border',
-                'Oxi per',
-                'Oxi ket',
-                'P min',
-                'P max',
-                'P border',
-                'P per',
-                'P ket',
-                'Wt min',
-                'Wt max',
-                'Wt border',
-                'Wt per',
-                'Wt ket',
-                'Zn min',
-                'Zn max',
-                'Zn border',
-                'Zn per',
-                'Zn ket',
-                'Soot min',
-                'Soot max',
-                'Soot border',
-                'Soot per',
-                'Soot ket',
-                'Nit min',
-                'Nit max',
-                'Nit border',
-                'Nit per',
-                'Nit ket',
-                'TAN min',
-                'TAN max',
-                'TAN border',
-                'TAN per',
-                'TAN ket',
-                'Ca min',
-                'Ca max',
-                'Ca border',
-                'Ca per',
-                'Ca ket',
-                'Fu min',
-                'Fu max',
-                'Fu border',
-                'Fu per',
-                'Fu ket',
-                'TBN min',
-                'TBN max',
-                'TBN border',
-                'TBN per',
-                'TBN ket',
-                'Ag min',
-                'Ag max',
-                'Ag border',
-                'Ag per',
-                'Ag ket',
-                'Sn min',
-                'Sn max',
-                'Sn border',
-                'Sn per',
-                'Sn ket',
-                'Pb min',
-                'Pb max',
-                'Pb border',
-                'Pb per',
-                'Pb ket',
-                'Fe min',
-                'Fe max',
-                'Fe border',
-                'Fe per',
-                'Fe ket',
-                'Cu min',
-                'Cu max',
-                'Cu border',
-                'Cu per',
-                'Cu ket',
-                'Cr min',
-                'Cr max',
-                'Cr border',
-                'Cr per',
-                'Cr ket',
-                'Al min',
-                'Al max',
-                'Al border',
-                'Al per',
-                'Al ket',
-                'Si min',
-                'Si max',
-                'Si border',
-                'Si per',
-                'Si ket',
-                'Na min',
-                'Na max',
-                'Na border',
-                'Na per',
-                'Na ket',
-                'PI min',
-                'PI max',
-                'PI border',
-                'PI per',
-                'PI ket',
-                'TI min',
-                'TI max',
-                'TI border',
-                'TI per',
-                'TI ket',
-                'Sulf min',
-                'Sulf max',
-                'Sulf border',
-                'Sulf per',
-                'Sulf ket',
-                'Mg min',
-                'Mg max',
-                'Mg border',
-                'Mg per',
-                'Mg ket',
-                'Mo min',
-                'Mo max',
-                'Mo border',
-                'Mo per',
-                'Mo ket',
-                'NAS 1638 min',
-                'NAS 1638 max',
-                'NAS 1638 border',
-                'NAS 1638 per',
-                'NAS 1638 ket',
-                'V min',
-                'V max',
-                'V border',
-                'V per',
-                'V ket',
-                'FP COC min',
-                'FP COC max',
-                'FP COC border',
-                'FP COC per',
-                'FP COC ket',
-                'Wt D 95 min',
-                'Wt D 95 max',
-                'Wt D 95 border',
-                'Wt D 95 per',
-                'Wt D 95 ket',
-                'Wt KF min',
-                'Wt KF max',
-                'Wt KF border',
-                'Wt KF per',
-                'Wt KF ket',
-                'Gly min',
-                'Gly max',
-                'Gly border',
-                'Gly per',
-                'Gly ket',
-                'TBN_D4739 min',
-                'TBN_D4739 max',
-                'TBN_D4739 border',
-                'TBN_D4739 per',
-                'TBN_D4739 ket',
-                'PP min',
-                'PP max',
-                'PP border',
-                'PP per',
-                'PP ket',
-                'Ni min',
-                'Ni max',
-                'Ni border',
-                'Ni per',
-                'Ni ket',
-                'B min',
-                'B max',
-                'B border',
-                'B per',
-                'B ket',
-            )
+            ->select($selectedColumns)
             ->get()
             ->toArray();
 
@@ -695,33 +560,46 @@ class OilController extends Controller
         }
 
         // Define the CSV file name
-        $csvFileName = 'oil_data.csv';
+        $fileName = 'oil_data.csv';
 
         // Set response headers for CSV download
-        $headers = array(
+        $headers = [
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=$csvFileName",
+            "Content-Disposition" => "attachment; filename=$fileName",
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
-        );
+        ];
 
-        // Create a CSV file
-        $handle = fopen('php://output', 'w');
+        $callback = function () use ($data, $columns) {
+            $file = fopen('php://output', 'w');
 
-        // Write the CSV header row with column names
-        fputcsv($handle, array_keys((array) $data[0]));
+            // Write CSV header
+            $headerRow = [];
+            foreach ($columns as $column => $subColumns) {
+                foreach ($subColumns as $subColumn) {
+                    $headerRow[] = $column . ' ' . $subColumn;
+                }
+            }
+            // fputcsv($file, $headerRow);
+            fwrite($file, implode(",", $headerRow) . "\n");  
 
-        // Write each data row to the CSV file
-        foreach ($data as $row) {
-            fputcsv($handle, (array) $row);
-        }
+            // Write CSV rows
+            foreach ($data as $row) {
+                $rowData = [];
+                foreach ($columns as $column => $subColumns) {
+                    foreach ($subColumns as $subColumn) {
+                        $rowData[] = $row->{$column . ' ' . $subColumn}; // Ambil nilai dari subkolom
+                    }
+                }
+                fputcsv($file, $rowData);
+                // fwrite($file, implode(",", $rowData) . "\n");
+            }
 
-        // Close the CSV file
-        fclose($handle);
+            fclose($file);
+        };
 
-        // Return the CSV file as a response
-        return Response::make(rtrim(ob_get_clean()), 200, $headers);
+        return Response::stream($callback, 200, $headers);
     }
 
 
@@ -750,11 +628,11 @@ class OilController extends Controller
                     'component.compoName',
                     'model.modelType',
                 )
-                
+
                 ->first();
 
             $condems = DB::table('condem')
-                ->where('condemID', '=' , $id)
+                ->where('condemID', '=', $id)
                 ->select(
                     'Vk 40 min',
                     'Vk 40 max',
@@ -938,12 +816,12 @@ class OilController extends Controller
                     'B ket',
                 )
                 ->get();
-             $data[$key] = [
-                    'manufacture_date' => $result->manufac,
-                    'application' => $result->applicationName,
-                    'component' => $result->compoName,
-                    'model' => $result->modelType,
-                    'condems' => $condems
+            $data[$key] = [
+                'manufacture_date' => $result->manufac,
+                'application' => $result->applicationName,
+                'component' => $result->compoName,
+                'model' => $result->modelType,
+                'condems' => $condems
             ];
         }
 

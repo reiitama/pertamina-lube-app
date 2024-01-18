@@ -30,7 +30,8 @@ class CustomController extends Controller
                 'custo_condem.*' // Menambahkan semua kolom dari tabel "custo_condem" ke dalam select
             )
             ->get();
-            return view('custom.custom', ['result' => $result]);
+
+        return view('custom.custom', ['result' => $result]);
     }
 
 

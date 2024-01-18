@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <!-- Add your CSS and other head elements here -->
 </head>
+
 <body>
     <div class="container mt-4">
         <hr>
@@ -16,9 +15,9 @@
                     @if ($index < count($columns))
                         <div class="col-md-2">
                             <label for="{{ Str::slug($columns[$index]) }}"
-                                class="form-label">{{ $columns[$index] }}</label>
+                                class="form-label">{{ getLastWord($columns[$index]) }}</label>
                             <input type="text" id="{{ Str::slug($columns[$index]) }}" class="form-control"
-                                value="{{ $custom[$columns[$index]] }}" readonly>
+                                value="{{ parseValue(getLastWord($columns[$index]), $custom[$columns[$index]]) }}" readonly>
                         </div>
                     @endif
                 @endfor
@@ -26,33 +25,34 @@
             <br>
         @endforeach
     </div>
-
-    <!-- Add your JavaScript and other script elements here -->
 </body>
+
 </html>
 
 @php
-    function getPrefix($name)
-    {
-        $prefixes = ['min', 'max', 'border', 'per', ];
-
-        foreach ($prefixes as $prefix) {
-            if (strpos($name, $prefix) === 0) {
-                return $prefix;
-            }
-        }
-
-        return $name;
-    }
 
     function getLastWord($str)
-{
-    $words = explode(' ', $str);
-    $lastWord = end($words);
+    {
+        $words = explode(' ', $str);
+        $lastWord = end($words);
+        $capitalizedLastWord = ucfirst($lastWord);
+        return $capitalizedLastWord;
+    }
 
-    // Membuat huruf pertama dari kata menjadi huruf kapital
-    $capitalizedLastWord = ucfirst($lastWord);
-
-    return $capitalizedLastWord;
-}
+    function parseValue($type, $value)
+    {
+        if ($type != 'Per') {
+            return $value;
+        }
+        if ($value == '1') {
+            return 'Percent / %';
+        }
+        if ($value == '0') {
+            return 'Numeric';
+        }
+        if ($value == '-') {
+            return 'None';
+        }
+        return $value;
+    }
 @endphp
