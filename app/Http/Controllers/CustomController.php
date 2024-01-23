@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Condem\CondemsExport;
+use App\Exports\Custom\CustomsExport;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use App\Models\Custom;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomController extends Controller
 {
     public function index()
     {
-        
+
         $result = DB::table('equip')
             ->join('customer', 'customer.customerID', '=', 'equip.customerID')
             ->join('area', 'area.areaID', '=', 'equip.areaID')
@@ -474,7 +477,7 @@ class CustomController extends Controller
         $data = [];
 
         foreach ($selectedRowIds as $key => $id) {
-            
+
             $result = DB::table('equip')
                 ->where('custo_condem.conID','=', $id)
                 ->join('customer', 'customer.customerID', '=', 'equip.customerID')
@@ -491,7 +494,7 @@ class CustomController extends Controller
                     'equip.engineNumber',
                 )
                 ->first();
-            
+
             $condems = DB::table('custo_condem')
                 ->where('conID', '=',$id)
                 ->select(
@@ -652,7 +655,7 @@ class CustomController extends Controller
             ];
         }
 
-        
+
 
 
 
@@ -677,6 +680,16 @@ class CustomController extends Controller
         return response()->json(['message' => 'PDF data has been generated', 'pdf_file' => $pdfFileName]);
     }
 
+    public function exportExcel($condemIDs)
+    {
+        $selectedRowIds = explode(',', $condemIDs);
+
+        if (empty($selectedRowIds)) {
+            return response()->json(['message' => 'No rows selected for export'], 400);
+        }
+
+        return Excel::download(new CustomsExport($condemIDs), 'custom.xlsx');
+    }
 
 
     public function downloadPdf(Request $request)

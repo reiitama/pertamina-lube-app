@@ -29,7 +29,8 @@
     <style>
         /* Tombol CSV dan PDF */
         #exportSelected,
-        #exportSelectedPdf {
+        #exportSelectedPdf,
+        #exportSelectedExcel {
             background-color: black;
             color: white;
             border: none;
@@ -119,8 +120,8 @@
                         </label>
 
                         <!-- Tombol CSV dengan ikon -->
-                        <button type="button" id="exportSelected" class="btn btn-primary float-right ml-2">
-                            <i class="fas fa-file-csv"></i> CSV
+                        <button type="button" id="exportSelectedExcel" class="btn btn-primary float-right ml-2">
+                            <i class="fas fa-file-pdf"></i> Excel
                         </button>
 
                         <!-- Tombol PDF dengan ikon -->
@@ -128,6 +129,9 @@
                             <i class="fas fa-file-pdf"></i> PDF
                         </button>
 
+                        {{-- <button id="exportSelectedExcel" class="btn btn-primary float-right">
+                            <i class="fas fa-file-pdf"></i> Excel
+                        </button> --}}
                     </div>
 
                     <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
@@ -346,7 +350,7 @@
                                             link.href = pdfFileUrl;
                                             link.download = selectedRowData[0].customerName + '' +
                                                 selectedRowData[0].areaName + '' + selectedRowData[0]
-                                                .cityName + '' + selectedRowData[0].equipCode + '' + 
+                                                .cityName + '' + selectedRowData[0].equipCode + '' +
                                                 selectedRowData[0].engineNumber + '' + selectedRowData[0].modelType + '' +
                                                 selectedRowIds[0] +
                                                 '.pdf'; // Menggunakan informasi dari data pertama dalam penamaan
@@ -367,6 +371,28 @@
                                 // Inform the user to select rows before exporting
                                 alert('Please select rows to export as PDF.');
                             }
+                        });
+                        $('#exportSelectedExcel').on('click', function () {
+                            const selectedRowIds = $('input[name="selectedRows[]"]:checked')
+                                .map(function () {
+                                    return $(this).val();
+                                })
+                                .get();
+                            console.log("ABCCC")
+
+                            if (selectedRowIds.length === 0) {
+                                alert('Please select rows to export as Excel.');
+                                return;
+                            }
+                            console.log("ABC")
+
+                            const exportExcelUrl = "{{ route('custom.export.excel', '') }}" + '/' + selectedRowIds.join(',');
+                            var link = document.createElement('a');
+                            link.href = exportExcelUrl;
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                         });
 
                         FontAwesome.init();

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Condem\CondemsExport;
+use App\Models\Oil;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\Request;
-use App\Models\Oil;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OilController extends Controller
 {
@@ -582,7 +584,7 @@ class OilController extends Controller
                 }
             }
             // fputcsv($file, $headerRow);
-            fwrite($file, implode(",", $headerRow) . "\n");  
+            fwrite($file, implode(",", $headerRow) . "\n");
 
             // Write CSV rows
             foreach ($data as $row) {
@@ -601,7 +603,6 @@ class OilController extends Controller
 
         return Response::stream($callback, 200, $headers);
     }
-
 
 
     public function exportPdf($condemIDs)
@@ -628,7 +629,6 @@ class OilController extends Controller
                     'component.compoName',
                     'model.modelType',
                 )
-
                 ->first();
 
             $condems = DB::table('condem')
@@ -846,7 +846,16 @@ class OilController extends Controller
         return response()->json(['message' => 'PDF data has been generated', 'pdf_file' => $pdfFileName]);
     }
 
+    public function exportExcel($condemIDs)
+    {
+        $selectedRowIds = explode(',', $condemIDs);
 
+        if (empty($selectedRowIds)) {
+            return response()->json(['message' => 'No rows selected for export'], 400);
+        }
+
+        return Excel::download(new CondemsExport($condemIDs), 'oil.xlsx');
+    }
 
     public function downloadPdf(Request $request)
     {
